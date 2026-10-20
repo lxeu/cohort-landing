@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/* Same palette and fonts as the CalendarAI Mini prototype, so the site and the app feel like one product. */
+@theme {
+  --color-paper: #faf9f7;
+  --color-card: #ffffff;
+  --color-ink: #1c1b19;
+  --color-muted: #6b6862;
+  --color-line: #e7e4df;
+  --color-accent: #2f9e6b;
+  --color-accent-soft: #e6f3ec;
+  --color-blue: #3b6fd8;
+  --color-red: #d4553a;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Source Serif 4", ui-serif, Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scroll reveal: elements start slightly lowered and fade in when they enter the viewport. */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
