@@ -6,12 +6,7 @@ import { supabase } from "../lib/supabase";
 const CONSENT_TEXT = "Email me when Cohort launches. Unsubscribe anytime.";
 
 // CASL also requires saying who's asking and how to reach them. Saved with each signup, like the consent text.
-const DISCLOSURE_TEXT = [
-  `Cohort is a UAIS project at the University of Alberta${MAILING_ADDRESS ? `, ${MAILING_ADDRESS}` : ""}.`,
-  CONTACT_EMAIL && `Questions: ${CONTACT_EMAIL}.`,
-]
-  .filter(Boolean)
-  .join(" ");
+const DISCLOSURE_TEXT = ["Cohort, a UAIS project", MAILING_ADDRESS, CONTACT_EMAIL].filter(Boolean).join(" · ");
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -109,12 +104,6 @@ export default function Waitlist() {
           />
           <span>{CONSENT_TEXT}</span>
         </label>
-        <p className="mt-3 pl-7 text-xs leading-relaxed text-white/60">
-          {DISCLOSURE_TEXT}{" "}
-          <a href="/privacy.html" className="underline underline-offset-2 hover:text-white">
-            Privacy
-          </a>
-        </p>
         {status === "error" && (
           <p id="waitlist-error" role="alert" className="mt-3 text-sm text-white">
             {error}
@@ -127,7 +116,14 @@ export default function Waitlist() {
   return (
     <div className="mx-auto max-w-md">
       {body}
-      <p className="mt-6 text-center text-xs text-white/50">Built by UofA students. We'll only email you about Cohort's launch.</p>
+      <p className="mt-6 text-center text-xs leading-relaxed text-white/50">
+        Built by UofA students. We'll only email you about Cohort's launch.
+        <br />
+        {DISCLOSURE_TEXT} ·{" "}
+        <a href="/privacy.html" className="underline underline-offset-2 hover:text-white">
+          Privacy
+        </a>
+      </p>
     </div>
   );
 }
