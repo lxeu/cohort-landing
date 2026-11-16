@@ -1,8 +1,17 @@
 import { useState, type FormEvent } from "react";
+import { CONTACT_EMAIL, MAILING_ADDRESS } from "../config";
 import { supabase } from "../lib/supabase";
 
 // Saved with every signup as proof of what the person agreed to (CASL), so it must match the checkbox label exactly.
 const CONSENT_TEXT = "Email me when Cohort launches. Unsubscribe anytime.";
+
+// CASL also requires saying who's asking and how to reach them. Saved with each signup, like the consent text.
+const DISCLOSURE_TEXT = [
+  `Cohort is a UAIS project at the University of Alberta${MAILING_ADDRESS ? `, ${MAILING_ADDRESS}` : ""}.`,
+  CONTACT_EMAIL && `Questions: ${CONTACT_EMAIL}.`,
+]
+  .filter(Boolean)
+  .join(" ");
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -34,7 +43,13 @@ export default function Waitlist() {
     setStatus("loading");
     const { error } = await supabase
       .from("waitlist")
-      .insert({ email: cleaned, consent: true, consent_text: CONSENT_TEXT, source: getSource() });
+      .insert({
+        email: cleaned,
+        consent: true,
+        consent_text: CONSENT_TEXT,
+        disclosure_text: DISCLOSURE_TEXT,
+        source: getSource(),
+      });
 
     // 23505 = already on the list. Show the normal success message so the form doesn't reveal who has signed up.
     if (!error || error.code === "23505") {
@@ -94,6 +109,12 @@ export default function Waitlist() {
           />
           <span>{CONSENT_TEXT}</span>
         </label>
+        <p className="mt-3 pl-7 text-xs leading-relaxed text-white/60">
+          {DISCLOSURE_TEXT}{" "}
+          <a href="/privacy.html" className="underline underline-offset-2 hover:text-white">
+            Privacy
+          </a>
+        </p>
         {status === "error" && (
           <p id="waitlist-error" role="alert" className="mt-3 text-sm text-white">
             {error}
