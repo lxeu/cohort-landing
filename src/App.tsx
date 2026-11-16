@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Reveal from "./components/Reveal";
-import { CONTACT_EMAIL, HAS_DEMO_VIDEO, PROTOTYPE_URL } from "./config";
+import Waitlist from "./components/Waitlist";
+import { CONTACT_EMAIL, HAS_DEMO_VIDEO, LAUNCH_DATE, PROTOTYPE_URL } from "./config";
 
 function Logo() {
   return (
@@ -11,12 +12,16 @@ function Logo() {
   );
 }
 
+// Links to other sites open in a new tab; #anchors scroll within the page.
+function linkProps(href: string) {
+  return href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {};
+}
+
 function PrimaryButton({ href, children }: { href: string; children: ReactNode }) {
   return (
     <a
       href={href}
-      target="_blank"
-      rel="noreferrer"
+      {...linkProps(href)}
       className="inline-flex items-center justify-center gap-2 rounded-lg bg-ink px-5 py-3 text-sm font-medium text-white transition hover:bg-black active:scale-[0.98]"
     >
       {children}
@@ -28,6 +33,7 @@ function SecondaryButton({ href, children }: { href: string; children: ReactNode
   return (
     <a
       href={href}
+      {...linkProps(href)}
       className="inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-card px-5 py-3 text-sm font-medium transition hover:border-ink/30 active:scale-[0.98]"
     >
       {children}
@@ -42,14 +48,10 @@ function Arrow() {
 function CallToAction() {
   return (
     <div className="flex flex-col gap-3 sm:flex-row">
-      <PrimaryButton href={PROTOTYPE_URL}>
-        Try the prototype <Arrow />
+      <PrimaryButton href="#waitlist">
+        Join the waitlist <Arrow />
       </PrimaryButton>
-      {CONTACT_EMAIL ? (
-        <SecondaryButton href={`mailto:${CONTACT_EMAIL}?subject=Cohort`}>Get in touch</SecondaryButton>
-      ) : (
-        <SecondaryButton href="#how">See how it works</SecondaryButton>
-      )}
+      <SecondaryButton href={PROTOTYPE_URL}>Try the prototype</SecondaryButton>
     </div>
   );
 }
@@ -330,19 +332,22 @@ function WhereWeAre() {
 
 function Closing() {
   return (
-    <section className="mx-auto max-w-6xl px-4 pb-24 sm:px-6">
+    <section id="waitlist" className="mx-auto max-w-6xl scroll-mt-20 px-4 pb-24 sm:px-6">
       <Reveal>
         <div className="rounded-3xl bg-ink px-6 py-16 text-center text-white sm:px-12">
-          <h2 className="font-serif text-3xl font-semibold tracking-tight sm:text-4xl">See it for yourself.</h2>
+          <h2 className="font-serif text-3xl font-semibold tracking-tight sm:text-4xl">Be there on day one.</h2>
           <p className="mx-auto mt-4 max-w-md text-white/70">
-            Upload one of your syllabi and watch the deadlines land on your calendar.
+            Cohort launches for UofA students on {LAUNCH_DATE}. Join the waitlist and we'll email you when it's live.
           </p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <div className="mt-8">
+            <Waitlist />
+          </div>
+          <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
             <a
               href={PROTOTYPE_URL}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-medium text-ink transition hover:bg-white/90 active:scale-[0.98]"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/25 px-5 py-3 text-sm font-medium transition hover:border-white/60"
             >
               Try the prototype <Arrow />
             </a>
@@ -370,12 +375,10 @@ export default function App() {
           <div className="flex items-center gap-4">
             <span className="hidden text-sm text-muted sm:inline">A UAIS project</span>
             <a
-              href={PROTOTYPE_URL}
-              target="_blank"
-              rel="noreferrer"
+              href="#waitlist"
               className="rounded-lg bg-ink px-3.5 py-1.5 text-sm font-medium text-white transition hover:bg-black"
             >
-              Try it
+              Join waitlist
             </a>
           </div>
         </div>
