@@ -113,17 +113,19 @@ export default function Waitlist() {
     );
   }
 
+  return <div className="mx-auto max-w-md">{body}</div>;
+}
+
+// Who's asking and how to reach them. Must stay in the same card as the form, so it's part of the consent request.
+export function WaitlistSmallPrint() {
   return (
-    <div className="mx-auto max-w-md">
-      {body}
-      <p className="mt-6 text-center text-xs leading-relaxed text-white/50">
-        Built by UofA students. We'll only email you about Cohort's launch.
-        <br />
-        {DISCLOSURE_TEXT} ·{" "}
-        <a href="/privacy.html" className="underline underline-offset-2 hover:text-white">
-          Privacy
-        </a>
-      </p>
-    </div>
+    <p className="mx-auto max-w-md text-center text-xs leading-relaxed text-white/50">
+      Built by UofA students. We'll only email you about Cohort's launch.
+      <br />
+      {DISCLOSURE_TEXT} ·{" "}
+      <a href="/privacy.html" className="underline underline-offset-2 hover:text-white">
+        Privacy
+      </a>
+    </p>
   );
 }

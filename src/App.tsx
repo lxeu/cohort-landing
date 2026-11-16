@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Reveal from "./components/Reveal";
-import Waitlist from "./components/Waitlist";
+import Waitlist, { WaitlistSmallPrint } from "./components/Waitlist";
 import { CONTACT_EMAIL, HAS_DEMO_VIDEO, LAUNCH_DATE, PROTOTYPE_URL } from "./config";
 
 function Logo() {
@@ -359,6 +359,9 @@ function Closing() {
                 Get in touch
               </a>
             )}
+          </div>
+          <div className="mt-8">
+            <WaitlistSmallPrint />
           </div>
         </div>
       </Reveal>
