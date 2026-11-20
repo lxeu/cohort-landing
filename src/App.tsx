@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Reveal from "./components/Reveal";
 import Waitlist, { WaitlistSmallPrint } from "./components/Waitlist";
-import { CONTACT_EMAIL, HAS_DEMO_VIDEO, LAUNCH_DATE, PROTOTYPE_URL } from "./config";
+import { CONTACT_EMAIL, HAS_DEMO_VIDEO, PROTOTYPE_URL } from "./config";
 
 function Logo() {
   return (
@@ -337,7 +337,7 @@ function Closing() {
         <div className="rounded-3xl bg-ink px-6 py-16 text-center text-white sm:px-12">
           <h2 className="font-serif text-3xl font-semibold tracking-tight sm:text-4xl">Be there on day one.</h2>
           <p className="mx-auto mt-4 max-w-md text-white/70">
-            Cohort launches for UofA students on {LAUNCH_DATE}. Join the waitlist and we'll email you when it's live.
+            Join the waitlist and we'll email you when Cohort launches for UofA students.
           </p>
           <div className="mt-8">
             <Waitlist />
